@@ -524,16 +524,26 @@ footer .mail { user-select: all; font-family: var(--mono); }
       if (d === 0) { ctx.fillStyle = C.a1; ctx.globalAlpha = 0.18; ctx.beginPath(); ctx.arc(p[0], p[1], 18, 0, Math.PI * 2); ctx.fill(); ctx.globalAlpha = 1; }
       ctx.fillStyle = col; ctx.beginPath(); ctx.arc(p[0], p[1], j === hover ? r + 2 : r, 0, Math.PI * 2); ctx.fill(); ctx.globalAlpha = 1;
     }
+    // labels: start node first, then the hovered node, then its neighbours; a label that would overlap one already drawn is skipped
     ctx.textBaseline = 'middle';
-    for (var k = 0; k < N; k++) {
-      if (!(dist[k] <= Math.min(shown, 1) || k === hover)) continue;
-      var q = xy(k), fs = W < 420 ? 11 : 12;
-      ctx.font = (dist[k] === 0 ? '600 ' + (fs + 1) + 'px ' : fs + 'px ') + getComputedStyle(document.body).fontFamily;
-      var tw = ctx.measureText(names[k]).width, fitsL = q[0] - 13 - tw > 4, fitsR = q[0] + 13 + tw < W - 4;
-      var right = P[k].x >= 0.5 ? fitsR || !fitsL : !fitsL;
-      ctx.fillStyle = dist[k] === 0 ? C.fg : C.muted; ctx.textAlign = right ? 'left' : 'right';
-      ctx.fillText(names[k], q[0] + (right ? 13 : -13), q[1]);
-    }
+    var fs = W < 420 ? 11 : 12, fam = getComputedStyle(document.body).fontFamily, boxes = [], order = [seed];
+    if (hover >= 0 && hover !== seed) order.push(hover);
+    for (var k = 0; k < N; k++) if (dist[k] === 1 && shown >= 1 && order.indexOf(k) < 0) order.push(k);
+    order.forEach(function (k) {
+      var q = xy(k), big = dist[k] === 0;
+      ctx.font = (big ? '600 ' + (fs + 1) + 'px ' : fs + 'px ') + fam;
+      var tw = ctx.measureText(names[k]).width, h = fs + 4;
+      var sides = P[k].x >= 0.5 ? [1, -1] : [-1, 1];
+      for (var si = 0; si < 2; si++) {
+        var x0 = sides[si] > 0 ? q[0] + 12 : q[0] - 12 - tw, x1 = x0 + tw, y0 = q[1] - h / 2, y1 = q[1] + h / 2;
+        if (x0 < 2 || x1 > W - 2) continue;
+        if (boxes.some(function (b) { return x0 < b[2] && x1 > b[0] && y0 < b[3] && y1 > b[1]; })) continue;
+        boxes.push([x0, y0, x1, y1]);
+        ctx.fillStyle = big ? C.fg : C.muted; ctx.textAlign = 'left';
+        ctx.fillText(names[k], x0, q[1]);
+        return;
+      }
+    });
     if (!reduce && el < 1300) raf = requestAnimationFrame(draw);
   }
   function setSeed(j) {
