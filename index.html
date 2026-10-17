@@ -12,7 +12,7 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' x2='1'%3E%3Cstop offset='0' stop-color='%230a84ff'/%3E%3Cstop offset='1' stop-color='%23a970ff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='14' fill='url(%23g)'/%3E%3Ctext x='32' y='43' font-family='-apple-system,Helvetica,Arial' font-size='30' font-weight='700' fill='white' text-anchor='middle'%3EDK%3C/text%3E%3C/svg%3E">
 <style>
 :root { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 body { margin: 0; }
 img { max-width: 100%; }
@@ -61,14 +61,14 @@ nav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10; backgro
 nav .in { display: flex; align-items: center; justify-content: space-between; gap: 18px; height: 48px; }
 nav .me { font-weight: 600; font-size: 0.95rem; text-decoration: none; white-space: nowrap; }
 nav .links { display: flex; gap: 22px; overflow-x: auto; scrollbar-width: none; }
-nav .links a { font-size: 0.8rem; color: var(--muted); text-decoration: none; white-space: nowrap; }
+nav .links a { font-size: 0.8rem; color: var(--muted); text-decoration: none; white-space: nowrap; padding-block: 14px; }
 nav .links a:hover { color: var(--fg); }
 @media (max-width: 560px) { nav .me { display: none; } nav .links { gap: 18px; } }
 
 /* Hero */
 .hero { padding-block: 88px 72px; text-align: center; }
 .hero .eyebrow { font-size: 1.15rem; font-weight: 600; color: var(--muted); }
-.hero h1 { font-size: clamp(2.6rem, 7.4vw, 5rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.04; margin-top: 10px; }
+.hero h1 { text-wrap: pretty; font-size: clamp(2.6rem, 7.4vw, 5rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.04; margin-top: 10px; }
 .hero h1 span { background: linear-gradient(90deg, #0a84ff 0%, #a970ff 40%, #ff6b3d 72%, #30d158 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .hero .lede { font-size: clamp(1.1rem, 2.2vw, 1.4rem); color: var(--muted); max-width: 640px; margin: 22px auto 0; }
 .tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 56px; text-align: left; }
@@ -79,14 +79,15 @@ nav .links a:hover { color: var(--fg); }
 .tile small { font-size: 0.88rem; color: var(--b-muted); line-height: 1.35; }
 .tile .go { font-size: 0.88rem; color: var(--b-a1); margin-top: 6px; }
 @media (max-width: 860px) { .tiles { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 440px) { .tiles { grid-template-columns: 1fr; } }
+@media (max-width: 560px) { .tiles { gap: 10px; margin-top: 40px; } .tile { padding: 16px 14px; border-radius: 18px; } .tile b { font-size: 1.25rem; } .tile small, .tile .go { font-size: 0.8rem; } .tile .k { font-size: 0.75rem; } }
+@media (max-width: 360px) { .tile b { font-size: 1.1rem; } }
 
 /* Bands */
 .band { background: var(--b-bg); color: var(--b-fg); padding-block: 104px; scroll-margin-top: 48px; }
 .band .in { display: grid; gap: 40px; }
 .band .top { display: grid; gap: 14px; }
 .eyebrow { font-size: 1.05rem; font-weight: 600; color: var(--b-muted); display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
-.band h2 { font-size: clamp(2.3rem, 6vw, 4.2rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.05; }
+.band h2 { text-wrap: pretty; font-size: clamp(2.1rem, 6vw, 4.2rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.05; }
 .grad { background: linear-gradient(90deg, var(--b-a1), var(--b-a2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .lede2 { font-size: clamp(1.1rem, 2vw, 1.3rem); color: var(--b-muted); max-width: 680px; }
 .lede2 b { color: var(--b-fg); font-weight: 600; }
@@ -97,6 +98,7 @@ nav .links a:hover { color: var(--fg); }
 .stat { display: grid; gap: 4px; align-content: start; min-width: 0; }
 .stat b { font-family: var(--display); font-size: clamp(2.3rem, 5vw, 3.2rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1; font-variant-numeric: tabular-nums; }
 .stat span { color: var(--b-muted); font-size: 0.98rem; line-height: 1.35; }
+@media (max-width: 560px) { .stats { grid-template-columns: 1fr 1fr; gap: 26px 16px; grid-auto-flow: dense; } .stat b { font-size: 2rem; } .stat span { font-size: 0.9rem; } .stat.wide { grid-column: 1 / -1; } }
 
 .card { background: var(--b-card); border-radius: 24px; padding: clamp(20px, 4vw, 36px); display: grid; gap: 20px; min-width: 0; }
 .card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 14px; flex-wrap: wrap; }
@@ -106,8 +108,8 @@ nav .links a:hover { color: var(--fg); }
 .seg button { font: inherit; font-size: 0.82rem; font-weight: 500; border: 0; background: transparent; color: var(--b-muted); padding: 6px 14px; border-radius: 999px; cursor: pointer; }
 .seg button[aria-pressed="true"] { background: var(--b-fg); color: var(--b-bg); }
 
-.more { display: flex; gap: 10px 28px; flex-wrap: wrap; }
-.more a { color: var(--b-a1); text-decoration: none; font-size: 1.05rem; }
+.more { display: flex; gap: 0 28px; flex-wrap: wrap; }
+.more a { color: var(--b-a1); text-decoration: none; font-size: 1.05rem; padding-block: 8px; }
 .more a:hover { text-decoration: underline; }
 .more a::after { content: " ›"; }
 
@@ -157,8 +159,8 @@ nav .links a:hover { color: var(--fg); }
 
 /* Graphify */
 .graph-wrap { position: relative; border-radius: 18px; overflow: hidden; background: var(--b-bg); border: 1px solid var(--b-line); }
-#graph { display: block; width: 100%; height: clamp(300px, 46vw, 440px); cursor: pointer; touch-action: manipulation; }
-.term { font-family: var(--mono); font-size: 0.85rem; color: var(--b-muted); background: var(--b-bg); border: 1px solid var(--b-line); border-radius: 12px; padding: 12px 14px; overflow-x: auto; white-space: nowrap; }
+#graph { display: block; width: 100%; height: clamp(360px, 46vw, 440px); cursor: pointer; touch-action: manipulation; }
+.term { font-family: var(--mono); font-size: 0.85rem; color: var(--b-muted); background: var(--b-bg); border: 1px solid var(--b-line); border-radius: 12px; padding: 12px 14px; overflow-wrap: anywhere; }
 .term b { color: var(--b-a1); font-weight: 600; }
 .seedrow { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; font-size: 0.9rem; color: var(--b-muted); }
 .seedrow select { font: inherit; font-size: 0.9rem; background: var(--b-bg); color: var(--b-fg); border: 1px solid var(--b-line); border-radius: 10px; padding: 6px 10px; }
@@ -172,6 +174,7 @@ nav .links a:hover { color: var(--fg); }
 .pr a { grid-column: 1 / -1; font-size: 0.85rem; color: var(--b-a2); text-decoration: none; font-family: var(--mono); }
 .pr a:hover { text-decoration: underline; }
 .pill.rev { color: var(--b-muted); }
+@media (max-width: 480px) { .pr { grid-template-columns: 1fr; gap: 6px; } .pr .pill { order: -1; justify-self: start; } }
 
 /* Footer */
 footer { background: var(--band); color: var(--muted); font-size: 0.82rem; padding-block: 28px 40px; }
@@ -256,7 +259,7 @@ footer .mail { user-select: all; font-family: var(--mono); }
     </div>
     <div class="stats">
       <div class="stat"><b class="grad">2.09×</b><span>cheaper over Django's 2022, 288 real fixes, same accuracy</span></div>
-      <div class="stat"><b>$11.56 → $4.20</b><span>the API bill for the same 228 questions</span></div>
+      <div class="stat wide"><b>$11.56 → $4.20</b><span>the API bill for the same 228 questions</span></div>
       <div class="stat"><b>5–10×</b><span>cheaper when a question is asked again</span></div>
     </div>
     <div class="card">
@@ -524,8 +527,10 @@ footer .mail { user-select: all; font-family: var(--mono); }
     ctx.textBaseline = 'middle';
     for (var k = 0; k < N; k++) {
       if (!(dist[k] <= Math.min(shown, 1) || k === hover)) continue;
-      var q = xy(k), right = q[0] < W - 120;
-      ctx.font = (dist[k] === 0 ? '600 13px ' : '12px ') + getComputedStyle(document.body).fontFamily;
+      var q = xy(k), fs = W < 420 ? 11 : 12;
+      ctx.font = (dist[k] === 0 ? '600 ' + (fs + 1) + 'px ' : fs + 'px ') + getComputedStyle(document.body).fontFamily;
+      var tw = ctx.measureText(names[k]).width, fitsL = q[0] - 13 - tw > 4, fitsR = q[0] + 13 + tw < W - 4;
+      var right = P[k].x >= 0.5 ? fitsR || !fitsL : !fitsL;
       ctx.fillStyle = dist[k] === 0 ? C.fg : C.muted; ctx.textAlign = right ? 'left' : 'right';
       ctx.fillText(names[k], q[0] + (right ? 13 : -13), q[1]);
     }
