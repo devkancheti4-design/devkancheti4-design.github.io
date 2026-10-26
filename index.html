@@ -98,7 +98,8 @@ nav .links a:hover { color: var(--fg); }
 .stat { display: grid; gap: 4px; align-content: start; min-width: 0; }
 .stat b { font-family: var(--display); font-size: clamp(2.3rem, 5vw, 3.2rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1; font-variant-numeric: tabular-nums; }
 .stat span { color: var(--b-muted); font-size: 0.98rem; line-height: 1.35; }
-@media (max-width: 560px) { .stats { grid-template-columns: 1fr 1fr; gap: 26px 16px; grid-auto-flow: dense; } .stat b { font-size: 2rem; } .stat span { font-size: 0.9rem; } .stat.wide { grid-column: 1 / -1; } }
+.stats.in-card .stat b { font-size: clamp(1.9rem, 4vw, 2.5rem); }
+@media (max-width: 560px) { .stats.in-card { grid-template-columns: 1fr; gap: 18px; } .stats { grid-template-columns: 1fr 1fr; gap: 26px 16px; grid-auto-flow: dense; } .stat b { font-size: 2rem; } .stat span { font-size: 0.9rem; } .stat.wide { grid-column: 1 / -1; } }
 
 .card { background: var(--b-card); border-radius: 24px; padding: clamp(20px, 4vw, 36px); display: grid; gap: 20px; min-width: 0; }
 .card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 14px; flex-wrap: wrap; }
@@ -208,10 +209,10 @@ footer .mail { user-select: all; font-family: var(--mono); }
     <h1>I build AI tools.<br><span>Then I prove them.</span></h1>
     <p class="lede">B.Tech CSE student at SRM University AP, class of 2029. Every number on this page comes from a public benchmark or a merged pull request.</p>
     <div class="tiles">
-      <a class="tile t-dl" href="#detect-law"><span class="k">Detect Law</span><b>#1 zero-shot</b><small>on RAID, the largest AI-text detection benchmark</small><span class="go">Learn more ›</span></a>
+      <a class="tile t-dl" href="#detect-law"><span class="k">Detect Law</span><b>#1 zero-shot</b><small>among published methods on RAID, the largest AI-text benchmark</small><span class="go">Learn more ›</span></a>
       <a class="tile t-md" href="#model-d"><span class="k">Model D</span><b>2.09× cheaper</b><small>Claude API bill over a year of real Django fixes</small><span class="go">Learn more ›</span></a>
-      <a class="tile t-cm" href="#claude-mem"><span class="k">claude-mem · 101k★</span><b>Merged</b><small>Search that finally answers plain questions</small><span class="go">Learn more ›</span></a>
-      <a class="tile t-gf" href="#graphify"><span class="k">Graphify · 127k★</span><b>Shipped ×2</b><small>In releases 0.9.87 and 0.9.88</small><span class="go">Learn more ›</span></a>
+      <a class="tile t-cm" href="#claude-mem"><span class="k">claude-mem · 103k★</span><b>Merged</b><small>Search that finally answers plain questions</small><span class="go">Learn more ›</span></a>
+      <a class="tile t-gf" href="#graphify"><span class="k">Graphify · 135k★</span><b>Shipped ×2</b><small>In releases 0.9.87 and 0.9.88</small><span class="go">Learn more ›</span></a>
     </div>
   </div>
 </header>
@@ -232,7 +233,7 @@ footer .mail { user-select: all; font-family: var(--mono); }
     </div>
     <div class="card">
       <div class="card-top">
-        <div><h3 id="dl-title">Ahead of every zero-shot detector.</h3><p class="cap" id="dl-cap"></p></div>
+        <div><h3 id="dl-title">Ahead of every published zero-shot detector.</h3><p class="cap" id="dl-cap"></p></div>
         <div class="seg" role="group" aria-label="Chart view">
           <button type="button" data-v="rank" aria-pressed="true">Leaderboard</button>
           <button type="button" data-v="attack" aria-pressed="false">Under attack</button>
@@ -253,7 +254,7 @@ footer .mail { user-select: all; font-family: var(--mono); }
 <section class="band t-md" id="model-d">
   <div class="in">
     <div class="top">
-      <p class="eyebrow">Model D · Optimal Context Mapping</p>
+      <p class="eyebrow">Model D · Optimal Context Mapping <span class="pill">v0.5.3</span></p>
       <h2>AI on your codebase.<br><span class="grad">A bill that flattens.</span></h2>
       <p class="lede2">AI coding agents spend most of their tokens working out where to look. Model D <b>maps your code once</b>, hands Claude the right file first, and learns from every answer. Your code never leaves your machine.</p>
     </div>
@@ -269,8 +270,17 @@ footer .mail { user-select: all; font-family: var(--mono); }
       </div>
       <div class="qbars" id="qbars"></div>
     </div>
+    <div class="card">
+      <div class="card-top"><div><h3>Checked by an outside agent.</h3><p class="cap">A separate Claude agent was given the repositories of Model D, Graphify and claude-mem, ran its own tests on codebases none of them had seen, and ranked Model D first. It did not reproduce the 2× saving: it measured 1.58× fewer tool calls.</p></div></div>
+      <div class="stats in-card">
+        <div class="stat"><b class="grad">51 vs 25</b><span>right file first on 120 real fixes, Model D vs Graphify</span></div>
+        <div class="stat"><b>49% vs 32%</b><span>right file in the top 5 on Saleor's 200 fixes</span></div>
+        <div class="stat"><b>661 vs 1,660</b><span>tokens per answer handed to the agent</span></div>
+      </div>
+    </div>
     <div class="more">
       <a href="https://optimal-context-mapping-site.vercel.app/">Visit the Model D site</a>
+      <a href="https://optimal-context-mapping-site.vercel.app/independent/">See the independent evaluation</a>
       <a href="https://github.com/devkancheti4-design/optimal-context-mapping">View on GitHub</a>
       <a href="https://doi.org/10.5281/zenodo.23289068">Read the paper</a>
     </div>
@@ -281,7 +291,7 @@ footer .mail { user-select: all; font-family: var(--mono); }
 <section class="band t-cm" id="claude-mem">
   <div class="in">
     <div class="top">
-      <p class="eyebrow">claude-mem · 101k★ <span class="pill ok">Merged 12 Oct 2026</span></p>
+      <p class="eyebrow">claude-mem · 103k★ <span class="pill ok">Merged 12 Oct 2026</span></p>
       <h2>Ask it like a person.<br><span class="grad">Now it answers.</span></h2>
       <p class="lede2">claude-mem gives AI agents a memory of past sessions. Its search needed <b>every word</b> to match, so a plain question found nothing. My fix retries with <b>any word</b> and ranks the closest notes first. Short keyword searches stay exact.</p>
     </div>
@@ -307,6 +317,13 @@ footer .mail { user-select: all; font-family: var(--mono); }
       <div class="stat"><b class="grad">0.534</b><span>after my fix, with no embeddings at all</span></div>
       <div class="stat"><b>0.524</b><span>a MiniLM embedding model on the same test, for reference</span></div>
     </div>
+    <div class="card">
+      <div class="prs">
+        <div class="pr"><h4>Next: faster sync, same pages</h4><span class="pill rev">With the maintainer</span>
+          <p>The sync hub re-measured the whole page for every item it added. I ported the byte counter claude-mem's API already uses: <b>131 ms → 2.6 ms</b> for a 3.9 MB page, with the same page returned.</p>
+          <a href="https://github.com/thedotmack/claude-mem/pull/4937">thedotmack/claude-mem#4937</a></div>
+      </div>
+    </div>
     <div class="more">
       <a href="https://github.com/thedotmack/claude-mem/pull/4697">See the merged pull request</a>
       <a href="https://github.com/devkancheti4-design/model-d-graphify/blob/master/bench/claude-mem/locomo_fts_fusion.py">Rerun the benchmark</a>
@@ -318,7 +335,7 @@ footer .mail { user-select: all; font-family: var(--mono); }
 <section class="band t-gf" id="graphify">
   <div class="in">
     <div class="top">
-      <p class="eyebrow">Graphify · 127k★ <span class="pill ok">Shipped in 0.9.87 and 0.9.88</span></p>
+      <p class="eyebrow">Graphify · 135k★ <span class="pill ok">Shipped in 0.9.87 and 0.9.88</span></p>
       <h2>Start in the right place.<br><span class="grad">Find the right file.</span></h2>
       <p class="lede2">Graphify turns a codebase into a graph that AI agents search. Every search spreads out from a few start nodes, so <b>where it starts decides what it finds</b>. That is the part I improved.</p>
     </div>
@@ -373,7 +390,7 @@ footer .mail { user-select: all; font-family: var(--mono); }
 
   /* Detect Law chart */
   var views = {
-    rank: { title: 'Ahead of every zero-shot detector.', cap: 'AI text caught at 5% false positives, no attacks. From RAID’s official evaluation.',
+    rank: { title: 'Ahead of every published zero-shot detector.', cap: 'AI text caught at 5% false positives, no attacks. From RAID’s official evaluation.',
       groups: [{ rows: [['Detect Law', '92.33', 1], ['Binoculars', '78.98'], ['GLTR', '59.69'], ['LLMDet', '33.40']] }] },
     attack: { title: 'Hard to fool.', cap: 'AI text caught under RAID’s attacks, at 5% false positives. Tricks are cleaned before every check.',
       groups: [
