@@ -46,6 +46,7 @@ img { max-width: 100%; }
 .t-dl { --b-bg: #000000; --b-fg: #f5f5f7; --b-muted: #a1a1a6; --b-line: #2c2c2e; --b-card: #1c1c1e; --b-a1: #2997ff; --b-a2: #a970ff; --b-them: #48484a; color-scheme: dark; }
 .t-md { --b-bg: #ffffff; --b-fg: #1d1d1f; --b-muted: #6e6e73; --b-line: #d2d2d7; --b-card: #f5f5f7; --b-a1: #0066cc; --b-a2: #7a5af8; --b-them: #c7c7cc; color-scheme: light; }
 .t-cm { --b-bg: #fff6ef; --b-fg: #1d1d1f; --b-muted: #6e6460; --b-line: #f0dccd; --b-card: #ffffff; --b-a1: #f56300; --b-a2: #e3006d; --b-them: #d9c9bd; color-scheme: light; }
+.t-fl { --b-bg: #0d0c1d; --b-fg: #f3f1fa; --b-muted: #a5a2bd; --b-line: #26243f; --b-card: #17162c; --b-a1: #ffb340; --b-a2: #ff6482; --b-them: #3d3b5c; color-scheme: dark; }
 .t-gf { --b-bg: #06140f; --b-fg: #eef6f2; --b-muted: #8fa69c; --b-line: #1b2e27; --b-card: #0c1f19; --b-a1: #30d158; --b-a2: #5ac8fa; --b-them: #2f4740; color-scheme: dark; }
 
 * { box-sizing: border-box; }
@@ -71,14 +72,16 @@ nav .links a:hover { color: var(--fg); }
 .hero h1 { text-wrap: pretty; font-size: clamp(2.6rem, 7.4vw, 5rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.04; margin-top: 10px; }
 .hero h1 span { background: linear-gradient(90deg, #0a84ff 0%, #a970ff 40%, #ff6b3d 72%, #30d158 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .hero .lede { font-size: clamp(1.1rem, 2.2vw, 1.4rem); color: var(--muted); max-width: 640px; margin: 22px auto 0; }
-.tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 56px; text-align: left; }
+.tiles { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; margin-top: 56px; text-align: left; }
+.tiles .tile { grid-column: span 2; }
+.tiles .tile:nth-child(n+4) { grid-column: span 3; }
 .tile { background: var(--b-bg); color: var(--b-fg); border-radius: 20px; padding: 22px 20px; text-decoration: none; display: grid; gap: 6px; align-content: start; border: 1px solid var(--b-line); transition: transform .25s ease; min-width: 0; }
 .tile:hover { transform: translateY(-3px); }
 .tile .k { font-size: 0.82rem; font-weight: 600; color: var(--b-muted); }
 .tile b { font-family: var(--display); font-size: 1.7rem; font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; background: linear-gradient(90deg, var(--b-a1), var(--b-a2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .tile small { font-size: 0.88rem; color: var(--b-muted); line-height: 1.35; }
 .tile .go { font-size: 0.88rem; color: var(--b-a1); margin-top: 6px; }
-@media (max-width: 860px) { .tiles { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 860px) { .tiles .tile, .tiles .tile:nth-child(n+4) { grid-column: span 3; } .tiles .tile:last-child { grid-column: 1 / -1; } }
 @media (max-width: 560px) { .tiles { gap: 10px; margin-top: 40px; } .tile { padding: 16px 14px; border-radius: 18px; } .tile b { font-size: 1.25rem; } .tile small, .tile .go { font-size: 0.8rem; } .tile .k { font-size: 0.75rem; } }
 @media (max-width: 360px) { .tile b { font-size: 1.1rem; } }
 
@@ -98,6 +101,10 @@ nav .links a:hover { color: var(--fg); }
 .stat { display: grid; gap: 4px; align-content: start; min-width: 0; }
 .stat b { font-family: var(--display); font-size: clamp(2.3rem, 5vw, 3.2rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1; font-variant-numeric: tabular-nums; }
 .stat span { color: var(--b-muted); font-size: 0.98rem; line-height: 1.35; }
+.limits { margin: 0; padding: 0; list-style: none; display: grid; gap: 12px; }
+.limits li { color: var(--b-muted); padding-left: 18px; position: relative; }
+.limits li::before { content: ""; position: absolute; left: 0; top: 0.6em; width: 7px; height: 7px; border-radius: 50%; background: var(--b-a2); }
+.limits b { color: var(--b-fg); font-weight: 600; }
 .stats.in-card .stat b { font-size: clamp(1.9rem, 4vw, 2.5rem); }
 @media (max-width: 560px) { .stats.in-card { grid-template-columns: 1fr; gap: 18px; } .stats { grid-template-columns: 1fr 1fr; gap: 26px 16px; grid-auto-flow: dense; } .stat b { font-size: 2rem; } .stat span { font-size: 0.9rem; } .stat.wide { grid-column: 1 / -1; } }
 
@@ -197,6 +204,7 @@ footer .mail { user-select: all; font-family: var(--mono); }
     <div class="links">
       <a href="#detect-law">Detect Law</a>
       <a href="#model-d">Model D</a>
+      <a href="#face-law">Face Law</a>
       <a href="#claude-mem">claude-mem</a>
       <a href="#graphify">Graphify</a>
     </div>
@@ -207,10 +215,11 @@ footer .mail { user-select: all; font-family: var(--mono); }
   <div class="in">
     <p class="eyebrow">Devieswar Kancheti</p>
     <h1>I build AI tools.<br><span>Then I prove them.</span></h1>
-    <p class="lede">B.Tech CSE student at SRM University AP, class of 2029. Every number on this page comes from a public benchmark or a merged pull request.</p>
+    <p class="lede">B.Tech CSE student at SRM University AP, class of 2029. Every number on this page links to public code, a benchmark run or a pull request.</p>
     <div class="tiles">
       <a class="tile t-dl" href="#detect-law"><span class="k">Detect Law</span><b>#1 zero-shot</b><small>among published methods on RAID, the largest AI-text benchmark</small><span class="go">Learn more ›</span></a>
       <a class="tile t-md" href="#model-d"><span class="k">Model D</span><b>2.09× cheaper</b><small>Claude API bill over a year of real Django fixes</small><span class="go">Learn more ›</span></a>
+      <a class="tile t-fl" href="#face-law"><span class="k">Face Law</span><b>No neural net</b><small>Face recognition from 33 KB of integer tables</small><span class="go">Learn more ›</span></a>
       <a class="tile t-cm" href="#claude-mem"><span class="k">claude-mem · 103k★</span><b>Merged</b><small>Search that finally answers plain questions</small><span class="go">Learn more ›</span></a>
       <a class="tile t-gf" href="#graphify"><span class="k">Graphify · 135k★</span><b>Shipped ×2</b><small>In releases 0.9.87 and 0.9.88</small><span class="go">Learn more ›</span></a>
     </div>
@@ -283,6 +292,56 @@ footer .mail { user-select: all; font-family: var(--mono); }
       <a href="https://optimal-context-mapping-site.vercel.app/independent/">See the independent evaluation</a>
       <a href="https://github.com/devkancheti4-design/optimal-context-mapping">View on GitHub</a>
       <a href="https://doi.org/10.5281/zenodo.23289068">Read the paper</a>
+    </div>
+  </div>
+</section>
+
+<!-- FACE LAW -->
+<section class="band t-fl" id="face-law">
+  <div class="in">
+    <div class="top">
+      <p class="eyebrow">Face Law · Face Law Labs <span class="pill ok">Every test public</span></p>
+      <h2>Recognises a face.<br><span class="grad">With no neural network.</span></h2>
+      <p class="lede2">Face Law recognises faces with <b>counted integer tables</b> instead of a trained network: no GPU, and no training beyond counting. Every table is proven exact, and the C++ matches the Python reference bit for bit on any machine.</p>
+    </div>
+    <div class="stats">
+      <div class="stat"><b class="grad">86.5%</b><span>of owners accepted at 1 stranger in 1,000, NIST-style test on Yale B. Best classic method: 84.0%</span></div>
+      <div class="stat"><b>33 KB</b><span>of tables for the whole model. A face template is 21 KB</span></div>
+      <div class="stat"><b>12.5 µs</b><span>per comparison on one CPU core, integer look-ups only. NIST allows 100 µs</span></div>
+      <div class="stat"><b>124 of 124</b><span>comparisons passed NIST's own test driver</span></div>
+    </div>
+    <div class="card">
+      <div class="card-top">
+        <div><h3 id="fl-title"></h3><p class="cap" id="fl-cap"></p></div>
+        <div class="seg" role="group" aria-label="Face Law comparison">
+          <button type="button" data-fl="verify" aria-pressed="true">Matching</button>
+          <button type="button" data-fl="eyes" aria-pressed="false">Eyes</button>
+          <button type="button" data-fl="photo" aria-pressed="false">Photo attack</button>
+        </div>
+      </div>
+      <div class="hbars" id="fl-bars"></div>
+    </div>
+    <div class="card">
+      <div class="card-top"><div><h3>Face unlock for any phone.</h3><p class="cap">The phone's ordinary front camera, with its own screen as the light: no depth camera, no infrared. The owner maps the angles they unlock at. For now it runs on a Mac connected to the phone by USB.</p></div></div>
+      <div class="stats in-card">
+        <div class="stat"><b class="grad">0 of 252</b><span>rendered strangers opened it, end to end</span></div>
+        <div class="stat"><b>74 → 3</b><span>stranger frames from real photographs that cleared a bar, before and after the eye-check law (of 17,492 and 14,420)</span></div>
+        <div class="stat"><b>1.8 s</b><span>to open in pitch dark, lit by the screen alone</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>What it can't do yet.</h3>
+      <ul class="limits">
+        <li><b>A photo of the owner can open it.</b> Printed photos moved slightly between flashes opened it 39 of 39 times.</li>
+        <li><b>Face ID is far ahead.</b> In the same light, Apple Face ID opened 11 of 11 times for the owner.</li>
+        <li><b>Lab faces only.</b> Tested on 38 people under changing light. On NIST's harder sets it should land near the bottom of the table.</li>
+        <li><b>NIST is not submitted yet.</b> The kit is ready; NIST needs an organization email first.</li>
+      </ul>
+    </div>
+    <div class="more">
+      <a href="https://github.com/devkancheti4-design/facelaw-">View on GitHub</a>
+      <a href="https://github.com/devkancheti4-design/facelaw-/blob/main/paper/face_law_v2_paper.pdf">Read the paper</a>
+      <a href="https://github.com/devkancheti4-design/facelaw-/blob/main/LAWS.md">Read the six laws</a>
     </div>
   </div>
 </section>
@@ -414,6 +473,36 @@ footer .mail { user-select: all; font-family: var(--mono); }
   }
   document.querySelectorAll('[data-v]').forEach(function (b) { b.onclick = function () { renderDL(b.dataset.v); }; });
   renderDL('rank');
+
+  /* Face Law head-to-heads */
+  var flViews = {
+    verify: { title: 'More owners in. Same strangers out.', cap: 'NIST-style 1:1 test on Extended Yale B, normal light, against the best classic method I ran.',
+      groups: [
+        { t: 'Owners accepted, 1 stranger in 1,000 let in', rows: [['Face Law v2', '86.5', 1], ['Tan–Triggs', '84.0']] },
+        { t: 'Owners accepted, 0 of 115,977 strangers let in', rows: [['Face Law v2', '72.7', 1], ['Tan–Triggs', '70.7']] }] },
+    eyes: { title: 'Right eyes, or no eyes.', cap: 'Eye finding on 2,354 real photos against Android\u2019s own face engine. Face Law put eyes in the wrong place 0 times; Android 19 times. In harsh light it finds far fewer.',
+      groups: [
+        { t: 'Normal light: eyes found correctly', rows: [['Face Law', '96.2', 1], ['Android', '94.9']] },
+        { t: 'Harsh side light: eyes found correctly', rows: [['Face Law', '6.3', 1], ['Android', '40.5']] }] },
+    photo: { title: 'A stranger\u2019s photo stays out.', cap: 'Photos of strangers shown to the phone on a screen. The phone\u2019s own Android face unlock is a convenience-class biometric. Small samples.',
+      groups: [{ rows: [['Face Law', '0', 1, '0 of 38'], ['Android unlock', '50', 0, '2 of 4']] }] }
+  };
+  function renderFL(k) {
+    var v = flViews[k], h = '';
+    v.groups.forEach(function (g) {
+      if (g.t) h += '<div class="gt">' + g.t + '</div>';
+      g.rows.forEach(function (r) {
+        h += '<div class="hb' + (r[2] ? ' me' : '') + '"><span class="n">' + r[0] + '</span><span class="tr"><span class="fl" data-to="' + r[1] + '%"></span></span><span class="v">' + (r[3] || r[1] + '%') + '</span></div>';
+      });
+    });
+    $('fl-bars').innerHTML = h;
+    $('fl-title').textContent = v.title;
+    $('fl-cap').textContent = v.cap;
+    document.querySelectorAll('[data-fl]').forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.fl === k); });
+    grow([].slice.call(document.querySelectorAll('#fl-bars .fl')), 'width');
+  }
+  document.querySelectorAll('[data-fl]').forEach(function (b) { b.onclick = function () { renderFL(b.dataset.fl); }; });
+  renderFL('verify');
 
   /* Model D quarters */
   var qs = [['Q1', 0.060, 0.032, '1.88×'], ['Q2', 0.083, 0.049, '1.70×'], ['Q3', 0.112, 0.050, '2.23×'], ['Q4', 0.105, 0.041, '2.57×']];
