@@ -102,6 +102,11 @@ nav .links a:hover { color: var(--fg); }
 .stat b { font-family: var(--display); font-size: clamp(2.3rem, 5vw, 3.2rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1; font-variant-numeric: tabular-nums; }
 .stat span { color: var(--b-muted); font-size: 0.98rem; line-height: 1.35; }
 .limits { margin: 0; padding: 0; list-style: none; display: grid; gap: 12px; }
+.res p { margin: 0; font-size: 0.95rem; color: var(--b-fg); }
+.card .cap a { color: var(--b-a1); text-decoration: none; }
+.card .cap a:hover { text-decoration: underline; }
+#face-law .hbars:not(#fl-bars) .hb { grid-template-columns: 13rem 1fr 4.2rem; }
+@media (max-width: 560px) { #face-law .hbars:not(#fl-bars) .hb { grid-template-columns: 1fr 4rem; } #face-law .hbars:not(#fl-bars) .hb .n { grid-column: 1 / -1; } #face-law .hbars:not(#fl-bars) .hb .tr { grid-column: 1; } }
 .limits li { color: var(--b-muted); padding-left: 18px; position: relative; }
 .limits li::before { content: ""; position: absolute; left: 0; top: 0.6em; width: 7px; height: 7px; border-radius: 50%; background: var(--b-a2); }
 .limits b { color: var(--b-fg); font-weight: 600; }
@@ -328,6 +333,26 @@ footer .mail { user-select: all; font-family: var(--mono); }
         <div class="stat"><b>74 → 3</b><span>stranger frames from real photographs that cleared a bar, before and after the eye-check law (of 17,492 and 14,420)</span></div>
         <div class="stat"><b>1.8 s</b><span>to open in pitch dark, lit by the screen alone</span></div>
       </div>
+    </div>
+    <div class="card">
+      <div class="card-top"><div><h3>Faces in the dark, without a neural network.</h3><p class="cap">DARK FACE: night photos where the median face is 11 pixels wide. Average precision (AP) at IoU 0.5: how well a detector finds every face while keeping false boxes out.</p></div></div>
+      <div class="hbars">
+        <div class="hb"><span class="n">DSFD, fine-tuned on dark faces</span><span class="tr"><span class="fl" style="width:46%"></span></span><span class="v">46.0%</span></div>
+        <div class="hb"><span class="n">EnlightenGAN + DSFD</span><span class="tr"><span class="fl" style="width:31.3%"></span></span><span class="v">31.3%</span></div>
+        <div class="hb me"><span class="n">Face Law, integer trees</span><span class="tr"><span class="fl" style="width:28.99%"></span></span><span class="v">28.99%</span></div>
+        <div class="hb"><span class="n">DSFD, not trained on dark faces</span><span class="tr"><span class="fl" style="width:16.1%"></span></span><span class="v">16.1%</span></div>
+        <div class="hb"><span class="n">RetinaFace</span><span class="tr"><span class="fl" style="width:8.6%"></span></span><span class="v">8.6%</span></div>
+      </div>
+      <div class="cols">
+        <div class="res"><span class="h">What ~30% usually takes</span><p>Two deep networks on a GPU: an enhancement network that brightens the photo, then DSFD, a ResNet-152 face detector pretrained on WIDER FACE's 393,703 labelled faces.</p></div>
+        <div class="res fix"><span class="h">What Face Law used</span><p>2,122 integer decision trees (129,442 nodes) fitted on 3,800 DARK FACE photos. No neural network. One CPU core, about 3.9 s per photo.</p></div>
+      </div>
+      <ul class="limits">
+        <li><b>Why it matters.</b> Detectors trained in daylight break at night: DSFD tops 90% precision on WIDER FACE but scores 16.1% on DARK FACE. On 300 DARK FACE photos, Android's own face detector found 1.6% of the faces.</li>
+        <li><b>Still behind the best.</b> Deep detectors trained on dark faces reach 46.0%, and the 2019 challenge winner reached 62.45% with an enhancement network and a deep detector.</li>
+        <li><b>Not the same test images.</b> Face Law's 28.99% is on its own sealed 1,000 photos from DARK FACE's 6,000 labelled ones (31.42% on validation). The others are on the official 4,000-photo test set.</li>
+      </ul>
+      <p class="cap">Sources: <a href="https://arxiv.org/abs/2104.01984">HLA-Face, CVPR 2021, Table 1</a> · <a href="https://arxiv.org/abs/1904.04474">UG2+ Track 2, IEEE TIP</a> · <a href="https://github.com/devkancheti4-design/facelaw-/blob/main/darkface/test50_result.json">Face Law sealed result</a></p>
     </div>
     <div class="card">
       <h3>What it can't do yet.</h3>
